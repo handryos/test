@@ -1,10 +1,14 @@
 import { Controller, Get } from '@nestjs/common';
-import * as sampleData from './data/sampleData';
 
 @Controller()
 export class AppController {
-  @Get()
-  getItems() {
-    return sampleData.items;
+  @Get('health')
+  healthCheck() {
+    return {
+      status: 'ok',
+      timestamp: new Date().toISOString(),
+      uptime: process.uptime(),
+      environment: process.env.NODE_ENV || 'development',
+    };
   }
 }
