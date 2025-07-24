@@ -3,6 +3,7 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { CoffeeController } from '../../infra/http/controllers/coffe/coffee.controller';
 import { CoffeeModel } from '../../infra/repositories/sequelize/coffee.model';
 import { SequelizeCoffeeRepository } from '../../infra/repositories/sequelize/coffee.repository';
+import { COFFEE_REPOSITORY_TOKEN } from '../../domain/interfaces/repositories/coffe/coffee.repository.token';
 import { CoffeeUseCasesModule } from '../../application/use-cases/coffe/coffee-use-cases.module';
 
 @Module({
@@ -10,10 +11,10 @@ import { CoffeeUseCasesModule } from '../../application/use-cases/coffe/coffee-u
   controllers: [CoffeeController],
   providers: [
     {
-      provide: 'CoffeeRepository',
+      provide: COFFEE_REPOSITORY_TOKEN,
       useClass: SequelizeCoffeeRepository,
     },
   ],
-  exports: ['CoffeeRepository', CoffeeUseCasesModule],
+  exports: [COFFEE_REPOSITORY_TOKEN, CoffeeUseCasesModule],
 })
 export class CoffeeModule {}
