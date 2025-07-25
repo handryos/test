@@ -12,5 +12,5 @@ RUN yarn run build
 
 EXPOSE 4000
 
-CMD ["yarn", "start:dev"]
+CMD ["sh", "-c", "yarn db:migrate && yarn db:seed && yarn start:dev"]
 
