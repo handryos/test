@@ -6,6 +6,7 @@ import {
   Delete,
   Body,
   Param,
+  Query,
   ParseIntPipe,
   HttpStatus,
   HttpException,
@@ -54,18 +55,48 @@ export class CoffeeController {
   ) {}
 
   @Get()
-  async findAll(): Promise<CoffeeResponseDto[]> {
-    const coffees = await this.getAllCoffeesUseCase.execute();
-    return coffees.map((coffee) => ({
-      id: coffee.id,
-      name: coffee.name,
-      description: coffee.description,
-      type: coffee.type,
-      price: coffee.price,
-      image_url: coffee.image_url,
-      createdAt: coffee.createdAt!,
-      updatedAt: coffee.updatedAt!,
-    }));
+  async findAll(@Query() query: any) {
+    const page = query.page ? parseInt(query.page, 10) : undefined;
+    const limit = query.limit ? parseInt(query.limit, 10) : undefined;
+    const offset = query.offset ? parseInt(query.offset, 10) : undefined;
+
+    if (page && page < 1) {
+      throw new BadRequestException('Page must be greater than 0');
+    }
+    if (limit && (limit < 1 || limit > 100)) {
+      throw new BadRequestException('Limit must be between 1 and 100');
+    }
+
+    const options = page && limit ? { page, limit, offset } : undefined;
+
+    const result = await this.getAllCoffeesUseCase.execute(options);
+
+    if (Array.isArray(result)) {
+      return result.map((coffee) => ({
+        id: coffee.id,
+        name: coffee.name,
+        description: coffee.description,
+        type: coffee.type,
+        price: coffee.price,
+        image_url: coffee.image_url,
+        createdAt: coffee.createdAt!,
+        updatedAt: coffee.updatedAt!,
+      }));
+    }
+
+    return {
+      data: result.data.map((coffee) => ({
+        id: coffee.id,
+        name: coffee.name,
+        description: coffee.description,
+        type: coffee.type,
+        price: coffee.price,
+        image_url: coffee.image_url,
+        createdAt: coffee.createdAt!,
+        updatedAt: coffee.updatedAt!,
+      })),
+      meta: result.meta,
+    };
   }
 
   @Get('by-name/:name')
