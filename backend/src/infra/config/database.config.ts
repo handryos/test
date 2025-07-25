@@ -1,5 +1,6 @@
 import { SequelizeModuleOptions } from '@nestjs/sequelize';
 import { CoffeeModel } from '../repositories/sequelize/coffee.model';
+import { UserModel } from '../repositories/sequelize/user.model';
 
 export const databaseConfig: SequelizeModuleOptions = {
   dialect: 'postgres',
@@ -8,8 +9,8 @@ export const databaseConfig: SequelizeModuleOptions = {
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DB,
-  models: [CoffeeModel],
-  synchronize: process.env.NODE_ENV === 'development' ? true : false,
+  models: [CoffeeModel, UserModel],
+  synchronize: false,
   logging: process.env.NODE_ENV === 'development' ? console.log : false,
   pool: {
     max: 10,
