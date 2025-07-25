@@ -3,7 +3,7 @@ export type CoffeeCreateModel = {
   description: string;
   type: string;
   price: number;
-  imageUrl: string;
+  image_url: string;
 };
 
 export type CoffeeUpdateModel = {
@@ -11,10 +11,7 @@ export type CoffeeUpdateModel = {
   description?: string;
   type?: string;
   price?: number;
-  imageUrl?: string;
+  image_url?: string;
 };
 
-export type CoffeeModelUniqRef = {
-  name?: string;
-  id?: number;
-};
+

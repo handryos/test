@@ -4,14 +4,12 @@ import { IBaseRepository } from 'src/domain/interfaces/repositories/base-reposit
 export abstract class BaseSequelizeRepository<
   TEntity,
   TUpdateModel,
-  TUniqRef,
   TModel extends Model,
 > implements
     IBaseRepository<
       TEntity,
       Omit<TEntity, 'id' | 'createdAt' | 'updatedAt'>,
-      TUpdateModel,
-      TUniqRef
+      TUpdateModel
     >
 {
   protected constructor(protected readonly model: ModelStatic<TModel>) {}

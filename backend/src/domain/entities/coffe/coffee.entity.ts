@@ -5,7 +5,7 @@ export class CoffeeEntity {
     public readonly description: string,
     public readonly type: string,
     public readonly price: number,
-    public readonly imageUrl: string,
+    public readonly image_url: string,
     public readonly createdAt?: Date,
     public readonly updatedAt?: Date,
   ) {}
@@ -16,7 +16,7 @@ export class CoffeeEntity {
     description: string,
     type: string,
     price: number,
-    imageUrl: string,
+    image_url: string,
     createdAt?: Date,
     updatedAt?: Date,
   ): CoffeeEntity {
@@ -26,7 +26,7 @@ export class CoffeeEntity {
       description,
       type,
       price,
-      imageUrl,
+      image_url,
       createdAt,
       updatedAt,
     );
@@ -39,7 +39,7 @@ export class CoffeeEntity {
       description: this.description,
       type: this.type,
       price: this.price,
-      imageUrl: this.imageUrl,
+      image_url: this.image_url,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
     };

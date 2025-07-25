@@ -2,15 +2,13 @@ import {
   CoffeeEntity,
   CoffeeCreateModel,
   CoffeeUpdateModel,
-  CoffeeModelUniqRef,
 } from '../../../models/coffe';
 import { IBaseRepository } from '../base-repository-interface';
 
 export type ICoffeeRepository = IBaseRepository<
   CoffeeEntity,
   CoffeeCreateModel,
-  CoffeeUpdateModel,
-  CoffeeModelUniqRef
+  CoffeeUpdateModel
 >;
 
 export interface CoffeeRepository extends ICoffeeRepository {

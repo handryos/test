@@ -28,7 +28,7 @@ export class CreateCoffeeDto {
   @IsString()
   @IsNotEmpty()
   @IsUrl()
-  imageUrl: string;
+  image_url: string;
 }
 
 export class UpdateCoffeeDto {
@@ -56,7 +56,7 @@ export class UpdateCoffeeDto {
   @IsString()
   @IsNotEmpty()
   @IsUrl()
-  imageUrl?: string;
+  image_url?: string;
 }
 
 export class CoffeeResponseDto {
@@ -77,7 +77,7 @@ export class CoffeeResponseDto {
 
   @IsString()
   @IsUrl()
-  imageUrl: string;
+  image_url: string;
 
   @IsDate()
   createdAt: Date;

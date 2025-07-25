@@ -1,4 +1,11 @@
-import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement } from 'sequelize-typescript';
+import {
+  Table,
+  Column,
+  Model,
+  DataType,
+  PrimaryKey,
+  AutoIncrement,
+} from 'sequelize-typescript';
 
 @Table({
   tableName: 'coffees',
@@ -39,5 +46,5 @@ export class CoffeeModel extends Model<CoffeeModel> {
     allowNull: false,
     field: 'image_url',
   })
-  imageUrl: string;
+  image_url: string;
 }

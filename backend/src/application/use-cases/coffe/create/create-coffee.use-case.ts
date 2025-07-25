@@ -22,7 +22,7 @@ export class CreateCoffeeUseCase {
       description: coffeeData.description,
       type: coffeeData.type,
       price: coffeeData.price,
-      imageUrl: coffeeData.imageUrl,
+      image_url: coffeeData.image_url,
     };
 
     return await this.coffeeRepository.create(createModel);

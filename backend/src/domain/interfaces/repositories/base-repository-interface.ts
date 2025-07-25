@@ -1,4 +1,4 @@
-export interface IBaseRepository<T, TCreate, TUpdate, K> {
+export interface IBaseRepository<T, TCreate, TUpdate> {
   findAll(): Promise<T[]>;
   findById(id: number): Promise<T | null>;
   create(data: TCreate): Promise<T>;

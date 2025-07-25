@@ -3,8 +3,7 @@ import { CoffeeRepository } from '../../../domain/interfaces/repositories/coffe/
 import {
   CoffeeEntity,
   CoffeeCreateModel,
-  CoffeeUpdateModel,
-  CoffeeModelUniqRef,
+  CoffeeUpdateModel
 } from '../../../domain/models/coffe';
 import { CoffeeModel } from './coffee.model';
 
@@ -43,7 +42,7 @@ export class SequelizeCoffeeRepository implements CoffeeRepository {
       description: coffeeData.description,
       type: coffeeData.type,
       price: coffeeData.price,
-      imageUrl: coffeeData.imageUrl,
+      image_url: coffeeData.image_url,
     });
     return this.toDomain(coffee);
   }
@@ -78,7 +77,7 @@ export class SequelizeCoffeeRepository implements CoffeeRepository {
       coffeeModel.description,
       coffeeModel.type,
       coffeeModel.price,
-      coffeeModel.imageUrl,
+      coffeeModel.image_url,
       coffeeModel.createdAt,
       coffeeModel.updatedAt,
     );

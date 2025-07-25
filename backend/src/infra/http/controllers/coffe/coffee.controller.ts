@@ -62,7 +62,7 @@ export class CoffeeController {
       description: coffee.description,
       type: coffee.type,
       price: coffee.price,
-      imageUrl: coffee.imageUrl,
+      image_url: coffee.image_url,
       createdAt: coffee.createdAt!,
       updatedAt: coffee.updatedAt!,
     }));
@@ -82,7 +82,7 @@ export class CoffeeController {
       description: coffee.description,
       type: coffee.type,
       price: coffee.price,
-      imageUrl: coffee.imageUrl,
+      image_url: coffee.image_url,
       createdAt: coffee.createdAt!,
       updatedAt: coffee.updatedAt!,
     };
@@ -102,7 +102,7 @@ export class CoffeeController {
       description: coffee.description,
       type: coffee.type,
       price: coffee.price,
-      imageUrl: coffee.imageUrl,
+      image_url: coffee.image_url,
       createdAt: coffee.createdAt!,
       updatedAt: coffee.updatedAt!,
     };
@@ -120,7 +120,7 @@ export class CoffeeController {
         description: coffee.description,
         type: coffee.type,
         price: coffee.price,
-        imageUrl: coffee.imageUrl,
+        image_url: coffee.image_url,
         createdAt: coffee.createdAt!,
         updatedAt: coffee.updatedAt!,
       };
@@ -151,7 +151,7 @@ export class CoffeeController {
         description: coffee.description,
         type: coffee.type,
         price: coffee.price,
-        imageUrl: coffee.imageUrl,
+        image_url: coffee.image_url,
         createdAt: coffee.createdAt!,
         updatedAt: coffee.updatedAt!,
       };
