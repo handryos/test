@@ -13,7 +13,6 @@ export type ICoffeeRepository = IBaseRepository<
 
 export interface CoffeeRepository extends ICoffeeRepository {
   findByName(name: string): Promise<CoffeeEntity | null>;
-  findByType(type: string): Promise<CoffeeEntity[]>;
 }
 
 export * from './coffee.repository.token';

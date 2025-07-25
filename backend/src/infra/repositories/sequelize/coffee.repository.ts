@@ -3,7 +3,7 @@ import { CoffeeRepository } from '../../../domain/interfaces/repositories/coffe/
 import {
   CoffeeEntity,
   CoffeeCreateModel,
-  CoffeeUpdateModel
+  CoffeeUpdateModel,
 } from '../../../domain/models/coffe';
 import { CoffeeModel } from './coffee.model';
 
@@ -27,13 +27,6 @@ export class SequelizeCoffeeRepository implements CoffeeRepository {
       where: { name },
     });
     return coffee ? this.toDomain(coffee) : null;
-  }
-
-  async findByType(type: string): Promise<CoffeeEntity[]> {
-    const coffees = await CoffeeModel.findAll({
-      where: { type },
-    });
-    return coffees.map((coffee) => this.toDomain(coffee));
   }
 
   async create(coffeeData: CoffeeCreateModel): Promise<CoffeeEntity> {
