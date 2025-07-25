@@ -22,7 +22,7 @@ export class LoginUseCase {
     }
 
     const payload = { sub: user.id, name: user.name };
-    const secret = process.env.JWT_SECRET || 'default-secret';
+    const secret = process.env.JWT_SECRET;
     const access_token = jwt.sign(payload, secret, { expiresIn: '24h' });
 
     return {
