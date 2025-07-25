@@ -11,4 +11,8 @@ export class AppController {
       environment: process.env.NODE_ENV || 'development',
     };
   }
+  @Get('/debug-sentry')
+  getError() {
+    throw new Error('My first Sentry error!');
+  }
 }
