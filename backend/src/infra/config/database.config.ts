@@ -1,5 +1,5 @@
 import { SequelizeModuleOptions } from '@nestjs/sequelize';
-import { CoffeeModel } from '../infra/repositories/sequelize/coffee.model';
+import { CoffeeModel } from '../repositories/sequelize/coffee.model';
 
 export const databaseConfig: SequelizeModuleOptions = {
   dialect: 'postgres',

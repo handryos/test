@@ -11,6 +11,7 @@ import {
   HttpException,
   BadRequestException,
   NotFoundException,
+  Inject,
 } from '@nestjs/common';
 import {
   CoffeeResponseDto,
@@ -26,15 +27,29 @@ import {
 } from 'src/application/use-cases/coffe';
 import { GetCoffeeByNameUseCase } from 'src/application/use-cases/coffe/get-by-name';
 import { DomainError } from 'src/domain/models/@shared/domain-error';
+import {
+  CREATE_COFFEE_USE_CASE,
+  GET_ALL_COFFEES_USE_CASE,
+  GET_COFFEE_BY_ID_USE_CASE,
+  GET_COFFEE_BY_NAME_USE_CASE,
+  UPDATE_COFFEE_USE_CASE,
+  DELETE_COFFEE_USE_CASE,
+} from 'src/modules/coffe/use-case.tokens';
 
 @Controller('coffees')
 export class CoffeeController {
   constructor(
+    @Inject(CREATE_COFFEE_USE_CASE)
     private readonly createCoffeeUseCase: CreateCoffeeUseCase,
+    @Inject(GET_ALL_COFFEES_USE_CASE)
     private readonly getAllCoffeesUseCase: GetAllCoffeesUseCase,
+    @Inject(GET_COFFEE_BY_ID_USE_CASE)
     private readonly getCoffeeByIdUseCase: GetCoffeeByIdUseCase,
+    @Inject(GET_COFFEE_BY_NAME_USE_CASE)
     private readonly getCoffeeByNameUseCase: GetCoffeeByNameUseCase,
+    @Inject(UPDATE_COFFEE_USE_CASE)
     private readonly updateCoffeeUseCase: UpdateCoffeeUseCase,
+    @Inject(DELETE_COFFEE_USE_CASE)
     private readonly deleteCoffeeUseCase: DeleteCoffeeUseCase,
   ) {}
 
