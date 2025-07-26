@@ -33,8 +33,8 @@ import {
   GetAllCoffeesUseCase,
   GetCoffeeByIdUseCase,
   UpdateCoffeeUseCase,
-} from 'src/application/use-cases/coffe';
-import { GetCoffeeByNameUseCase } from 'src/application/use-cases/coffe/get-by-name';
+} from 'src/application/use-cases/coffee';
+import { GetCoffeeByNameUseCase } from 'src/application/use-cases/coffee/get-by-name';
 import { DomainError } from 'src/domain/models/@shared/domain-error';
 import {
   CREATE_COFFEE_USE_CASE,
@@ -43,7 +43,7 @@ import {
   GET_COFFEE_BY_NAME_USE_CASE,
   UPDATE_COFFEE_USE_CASE,
   DELETE_COFFEE_USE_CASE,
-} from 'src/modules/coffe/use-case.tokens';
+} from 'src/modules/coffee/use-case.tokens';
 
 @ApiTags('coffees')
 @Controller('coffees')

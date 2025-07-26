@@ -2,7 +2,7 @@ import {
   CoffeeEntity,
   CoffeeCreateModel,
   CoffeeUpdateModel,
-} from '../../../models/coffe';
+} from '../../../models/coffee';
 import { IBaseRepository } from '../base-repository-interface';
 
 export type ICoffeeRepository = IBaseRepository<

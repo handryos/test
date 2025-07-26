@@ -1,6 +1,6 @@
 import { CoffeeRepository } from '../../../../domain/interfaces/repositories/coffe/coffee.repository.interface';
 import { UpdateCoffeeDto } from '../../../../@shared/@dtos/coffee.dto';
-import { CoffeeEntity } from '../../../../domain/entities/coffe/coffee.entity';
+import { CoffeeEntity } from '../../../../domain/entities/coffee/coffee.entity';
 import { CoffeeDomainService } from '../../../../domain/services/coffe/coffee.service';
 
 export class UpdateCoffeeUseCase {

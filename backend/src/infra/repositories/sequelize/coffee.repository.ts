@@ -4,7 +4,7 @@ import {
   CoffeeEntity,
   CoffeeCreateModel,
   CoffeeUpdateModel,
-} from '../../../domain/models/coffe';
+} from '../../../domain/models/coffee';
 import { CoffeeModel } from './coffee.model';
 import {
   PaginationOptions,
