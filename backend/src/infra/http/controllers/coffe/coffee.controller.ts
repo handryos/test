@@ -15,6 +15,14 @@ import {
   Inject,
 } from '@nestjs/common';
 import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiParam,
+  ApiQuery,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
+import {
   CoffeeResponseDto,
   CreateCoffeeDto,
   UpdateCoffeeDto,
@@ -37,6 +45,7 @@ import {
   DELETE_COFFEE_USE_CASE,
 } from 'src/modules/coffe/use-case.tokens';
 
+@ApiTags('coffees')
 @Controller('coffees')
 export class CoffeeController {
   constructor(
@@ -55,6 +64,40 @@ export class CoffeeController {
   ) {}
 
   @Get()
+  @ApiOperation({
+    summary: 'Get all coffees',
+    description:
+      'Retrieve all coffees with optional pagination for infinite scroll',
+  })
+  @ApiQuery({
+    name: 'page',
+    required: false,
+    type: Number,
+    description: 'Page number (starts from 1)',
+    example: 1,
+  })
+  @ApiQuery({
+    name: 'limit',
+    required: false,
+    type: Number,
+    description: 'Number of items per page (1-100)',
+    example: 10,
+  })
+  @ApiQuery({
+    name: 'offset',
+    required: false,
+    type: Number,
+    description: 'Number of items to skip',
+    example: 0,
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'List of coffees retrieved successfully',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad Request - Invalid pagination parameters',
+  })
   async findAll(@Query() query: any) {
     const page = query.page ? parseInt(query.page, 10) : undefined;
     const limit = query.limit ? parseInt(query.limit, 10) : undefined;
@@ -100,6 +143,25 @@ export class CoffeeController {
   }
 
   @Get('by-name/:name')
+  @ApiOperation({
+    summary: 'Get coffee by name',
+    description: 'Retrieve a specific coffee by its name',
+  })
+  @ApiParam({
+    name: 'name',
+    description: 'Coffee name',
+    type: 'string',
+    example: 'Espresso',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Coffee found successfully',
+    type: CoffeeResponseDto,
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Coffee not found',
+  })
   async findByName(
     @Param('name') name: string,
   ): Promise<CoffeeResponseDto | null> {
@@ -120,6 +182,25 @@ export class CoffeeController {
   }
 
   @Get(':id')
+  @ApiOperation({
+    summary: 'Get coffee by ID',
+    description: 'Retrieve a specific coffee by its unique identifier',
+  })
+  @ApiParam({
+    name: 'id',
+    description: 'Coffee ID',
+    type: 'number',
+    example: 1,
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Coffee found successfully',
+    type: CoffeeResponseDto,
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Coffee not found',
+  })
   async findOne(
     @Param('id', ParseIntPipe) id: number,
   ): Promise<CoffeeResponseDto> {
@@ -140,6 +221,24 @@ export class CoffeeController {
   }
 
   @Post()
+  @ApiOperation({
+    summary: 'Create a new coffee',
+    description: 'Create a new coffee with validation for duplicate names',
+  })
+  @ApiBearerAuth('JWT-auth')
+  @ApiResponse({
+    status: 201,
+    description: 'Coffee created successfully',
+    type: CoffeeResponseDto,
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad request - Invalid input or coffee name already exists',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized - JWT token required',
+  })
   async create(
     @Body() createCoffeeDto: CreateCoffeeDto,
   ): Promise<CoffeeResponseDto> {
@@ -164,6 +263,34 @@ export class CoffeeController {
   }
 
   @Put(':id')
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({
+    summary: 'Update coffee',
+    description: 'Update an existing coffee by ID. Requires authentication.',
+  })
+  @ApiParam({
+    name: 'id',
+    description: 'Coffee ID to update',
+    type: 'number',
+    example: 1,
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Coffee updated successfully',
+    type: CoffeeResponseDto,
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized - Invalid or missing authentication token',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Coffee not found',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad Request - Invalid input data',
+  })
   async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateCoffeeDto: UpdateCoffeeDto,
@@ -195,6 +322,29 @@ export class CoffeeController {
   }
 
   @Delete(':id')
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({
+    summary: 'Delete coffee',
+    description: 'Delete a coffee by ID. Requires authentication.',
+  })
+  @ApiParam({
+    name: 'id',
+    description: 'Coffee ID to delete',
+    type: 'number',
+    example: 1,
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Coffee deleted successfully',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized - Invalid or missing authentication token',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Coffee not found',
+  })
   async remove(
     @Param('id', ParseIntPipe) id: number,
   ): Promise<{ message: string }> {
