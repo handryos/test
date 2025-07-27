@@ -13,6 +13,7 @@ module.exports = {
           blue: "#77A9B0",
         },
         ui: {
+          bg: "#101011",
           card: "#191919",
           label: "#9B9B9B",
           inputBg: "#838382",
