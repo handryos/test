@@ -1,4 +1,8 @@
+"use client";
+
 import React from "react";
+import { Provider } from "react-redux";
+import { store } from "@/store";
 import "./globals.css";
 
 export default function RootLayout({
@@ -9,7 +13,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="animate-fade-in">{children}</div>
+        <Provider store={store}>
+          <div className="animate-fade-in bg-ui-bg">{children}</div>
+        </Provider>
       </body>
     </html>
   );

@@ -2,8 +2,6 @@ import Image from "next/image";
 import React from "react";
 import { motion } from "framer-motion";
 import { Typography } from "@/shared/components/ui/Typography";
-import { Title } from "@/shared/components/ui/Title";
-
 export interface CoffeeCardProps {
   type: "Arabic" | "Robusta";
   name: string;
@@ -20,11 +18,11 @@ export const CoffeeCard: React.FC<CoffeeCardProps> = ({
   imageUrl,
 }) => (
   <motion.div
-    className="bg-coffee-card rounded-2xl shadow-card p-10 flex flex-col items-center w-full max-w-4xl mx-auto md:max-w-5xl lg:max-w-6xl"
+    className="bg-coffee-card rounded-2xl shadow-card p-6 flex flex-col w-full h-[480px]"
     whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
     layout
   >
-    <div className="w-full flex justify-start mb-2">
+    <div className="w-full flex justify-start mb-3">
       <span
         className={`px-3 tracking-wider py-1 rounded-full text-xs font-normal ${
           type === "Arabic"
@@ -35,28 +33,36 @@ export const CoffeeCard: React.FC<CoffeeCardProps> = ({
         {type}
       </span>
     </div>
-    <img
-      src={imageUrl}
-      alt={name}
-      width={600}
-      height={180}
-      className="w-[600px] h-[180px] object-cover rounded-2xl mb-8"
-    />
-    <div>
-      <Typography
-        colorizedTypography
-        className="mb-1 text-1xl md:text-2xl text-coffee-primary font-semibold"
-      >
-        {name}
-      </Typography>
+
+    <div className="w-full h-[160px] mb-4">
+      <img
+        src={imageUrl}
+        alt={name}
+        className="w-full h-full object-cover rounded-xl"
+      />
     </div>
-    <div>
-      <Typography className="mb-2">
-        {description || "Missing description"}
-      </Typography>
+
+    <div className="flex-1 flex flex-col justify-between text-center min-h-0">
+      <div className="mb-3">
+        <Typography
+          colorizedTypography
+          className="text-lg md:text-xl text-coffee-primary font-semibold line-clamp-2"
+        >
+          {name}
+        </Typography>
+      </div>
+
+      <div className="flex-1 flex items-start justify-center mb-4">
+        <Typography className="text-sm line-clamp-4 text-center">
+          {description || "Missing description"}
+        </Typography>
+      </div>
+
+      <div className="mt-auto">
+        <motion.p className="text-white font-bold text-xl">
+          {Number(price ?? 0).toFixed(2)} €
+        </motion.p>
+      </div>
     </div>
-    <motion.p className="text-white font-bold text-xl mb-2">
-      {price.toFixed(2)} €
-    </motion.p>
   </motion.div>
 );

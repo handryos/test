@@ -3,8 +3,8 @@ import React from "react";
 
 const types = [
   { label: "All", value: "all" },
-  { label: "Robusta", value: "robusta" },
-  { label: "Arabic", value: "arabic" },
+  { label: "Robusta", value: "Robusta" },
+  { label: "Arabic", value: "Arabic" },
 ];
 
 export const CoffeeTypeFilter: React.FC<{

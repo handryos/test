@@ -17,7 +17,7 @@ export const ShowcaseHeader: React.FC = () => (
         alt="Coffee background"
         width={1920}
         height={500}
-        className="object-cover w-full h-full opacity-90"
+        className="object-cover w-full h-full"
       />
     </div>
     <div className="relative z-10 h-full w-full max-w-[1440px] mx-auto grid grid-cols-12 px-4 md:px-12">
