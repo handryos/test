@@ -1,8 +1,8 @@
-import { CreateCoffeeUseCase } from '../../../../../src/application/use-cases/coffe/create/create-coffee.use-case';
+import { CreateCoffeeUseCase } from '../../../../../src/application/use-cases/coffee/create/create-coffee.use-case';
 import { CoffeeRepository } from '../../../../../src/domain/interfaces/repositories/coffe/coffee.repository.interface';
 import { CreateCoffeeDto } from '../../../../../src/@shared/@dtos/coffee.dto';
-import { CoffeeEntity } from '../../../../../src/domain/entities/coffe/coffee.entity';
-import { CoffeeCreateModel } from '../../../../../src/domain/models/coffe';
+import { CoffeeEntity } from '../../../../../src/domain/entities/coffee/coffee.entity';
+import { CoffeeCreateModel } from '../../../../../src/domain/models/coffee';
 import { DomainError } from '../../../../../src/domain/models/@shared/domain-error';
 
 describe('CreateCoffeeUseCase', () => {

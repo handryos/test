@@ -1,9 +1,9 @@
 import { Provider } from '@nestjs/common';
-import { CreateCoffeeUseCase, GetAllCoffeesUseCase, GetCoffeeByIdUseCase, GetCoffeeByNameUseCase, UpdateCoffeeUseCase, DeleteCoffeeUseCase } from 'src/application/use-cases/coffe';
+import { CreateCoffeeUseCase, GetAllCoffeesUseCase, GetCoffeeByIdUseCase, GetCoffeeByNameUseCase, UpdateCoffeeUseCase, DeleteCoffeeUseCase } from 'src/application/use-cases/coffee';
 import { COFFEE_REPOSITORY_TOKEN, CoffeeRepository } from 'src/domain/interfaces/repositories/coffe';
 import { CoffeeDomainService } from 'src/domain/services/coffe';
 import { SequelizeCoffeeRepository } from 'src/infra/repositories/sequelize/coffee.repository';
-import { CREATE_COFFEE_USE_CASE, GET_ALL_COFFEES_USE_CASE, GET_COFFEE_BY_ID_USE_CASE, GET_COFFEE_BY_NAME_USE_CASE, UPDATE_COFFEE_USE_CASE, DELETE_COFFEE_USE_CASE } from 'src/modules/coffe/use-case.tokens';
+import { CREATE_COFFEE_USE_CASE, GET_ALL_COFFEES_USE_CASE, GET_COFFEE_BY_ID_USE_CASE, GET_COFFEE_BY_NAME_USE_CASE, UPDATE_COFFEE_USE_CASE, DELETE_COFFEE_USE_CASE } from 'src/modules/coffee/use-case.tokens';
 
 export const COFFEE_REPOSITORY_PROVIDER: Provider = {
   provide: COFFEE_REPOSITORY_TOKEN,

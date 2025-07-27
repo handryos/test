@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { CoffeeModule } from './coffe/coffee.module';
+import { CoffeeModule } from './coffee/coffee.module';
 import { AuthModule } from './auth/auth.module';
 
 @Module({

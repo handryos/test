@@ -2,7 +2,7 @@ import { CoffeeRepository } from '../../../../domain/interfaces/repositories/cof
 import {
   CoffeeEntity,
   CoffeeCreateModel,
-} from '../../../../domain/models/coffe';
+} from '../../../../domain/models/coffee';
 import { CreateCoffeeDto } from '../../../../@shared/@dtos/coffee.dto';
 import { CoffeeDomainService } from '../../../../domain/services/coffe/coffee.service';
 

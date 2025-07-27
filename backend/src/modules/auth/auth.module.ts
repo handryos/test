@@ -9,7 +9,7 @@ import { AUTH_PROVIDERS } from '../../providers/auth-providers/auth.provider';
   imports: [
     SequelizeModule.forFeature([UserModel]),
     JwtModule.register({
-      secret: process.env.JWT_SECRET || 'default-secret',
+      secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '24h' },
       global: true,
     }),
