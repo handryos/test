@@ -38,16 +38,16 @@ services:
       - app-network
     restart: always
 
-  # front-end:
-  #   build:
-  #     context: ./frontend
-  #     dockerfile: Dockerfile
-  #   container_name: nextjs-app
-  #   ports:
-  #     - "3000:3000"
-  #   networks:
-  #     - app-network
-  #   restart: always
+  front-end:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: nextjs-app
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+    restart: always
 
   reverse_proxy:
     image: nginx:latest
