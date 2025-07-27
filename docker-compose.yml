@@ -28,13 +28,28 @@ services:
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
       DB_DB: ${DB_DB}
+      JWT_SECRET: ${JWT_SECRET}
+      NODE_ENV: ${NODE_ENV}
+      FRONTEND_URL: ${FRONTEND_URL}
+      SENTRY_DSN: ${SENTRY_DSN}
     env_file:
       - .env
     networks:
       - app-network
     restart: always
 
-  nginx:
+  # front-end:
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: Dockerfile
+  #   container_name: nextjs-app
+  #   ports:
+  #     - "3000:3000"
+  #   networks:
+  #     - app-network
+  #   restart: always
+
+  reverse_proxy:
     image: nginx:latest
     container_name: reverse_proxy
     volumes:
@@ -43,6 +58,7 @@ services:
       - "5500:5500"
     depends_on:
       - nestjs-app
+      # - front-end
     networks:
       - app-network
     restart: always
