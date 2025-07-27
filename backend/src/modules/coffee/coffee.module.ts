@@ -14,9 +14,10 @@ import {
 } from './use-case.tokens';
 import { COFFEE_PROVIDERS } from 'src/providers/coffe-providers/coffee.provider';
 import { CoffeeController } from 'src/infra/http/controllers/coffee';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
-  imports: [SequelizeModule.forFeature([CoffeeModel])],
+  imports: [SequelizeModule.forFeature([CoffeeModel]), AuthModule],
   controllers: [CoffeeController],
   providers: [
     {

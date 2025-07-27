@@ -5,12 +5,16 @@ import {
   HttpException,
   HttpStatus,
   Inject,
+  UseGuards,
+  Request,
+  Get,
 } from '@nestjs/common';
 import {
   ApiTags,
   ApiOperation,
   ApiResponse,
   ApiBody,
+  ApiBearerAuth,
 } from '@nestjs/swagger';
 import {
   RegisterDto,
@@ -20,11 +24,14 @@ import {
 } from '../../../../@shared/@dtos/auth.dto';
 import { RegisterUseCase } from '../../../../application/use-cases/auth/register/register.use-case';
 import { LoginUseCase } from '../../../../application/use-cases/auth/login/login.use-case';
+import { LogoutUseCase } from '../../../../application/use-cases/auth/logout/logout.use-case';
 import { DomainError } from '../../../../domain/models/@shared/domain-error';
 import { Public } from '../../../../@shared/decorators/public.decorator';
+import { JwtAuthGuard } from '../../../../infra/guards/jwt-auth.guard';
 import {
   REGISTER_USE_CASE,
   LOGIN_USE_CASE,
+  LOGOUT_USE_CASE,
 } from '../../../../modules/auth/auth-use-case.tokens';
 
 @ApiTags('auth')
@@ -35,6 +42,8 @@ export class AuthController {
     private readonly registerUseCase: RegisterUseCase,
     @Inject(LOGIN_USE_CASE)
     private readonly loginUseCase: LoginUseCase,
+    @Inject(LOGOUT_USE_CASE)
+    private readonly logoutUseCase: LogoutUseCase,
   ) {}
 
   @Public()
@@ -157,6 +166,40 @@ export class AuthController {
       if (error instanceof DomainError) {
         throw new HttpException(error.message, HttpStatus.UNAUTHORIZED);
       }
+      throw new HttpException(
+        'Internal server error',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  @Post('logout')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'User logout',
+    description: 'Logout user - token should be removed from client side',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Logout successful',
+    example: {
+      message: 'Logout successful',
+    },
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized - Invalid or missing token',
+    example: {
+      message: 'Unauthorized',
+      statusCode: 401,
+    },
+  })
+  async logout(@Request() req): Promise<{ message: string }> {
+    try {
+      const token = req.token;
+      return await this.logoutUseCase.execute(token);
+    } catch (error) {
       throw new HttpException(
         'Internal server error',
         HttpStatus.INTERNAL_SERVER_ERROR,

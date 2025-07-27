@@ -3,6 +3,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { AuthController } from '../../infra/http/controllers/auth/auth.controller';
 import { UserModel } from '../../infra/repositories/sequelize/user.model';
+import { TokenBlacklistService } from '../../infra/services/token-blacklist.service';
 import { AUTH_PROVIDERS } from '../../providers/auth-providers/auth.provider';
 
 @Module({
@@ -15,7 +16,7 @@ import { AUTH_PROVIDERS } from '../../providers/auth-providers/auth.provider';
     }),
   ],
   controllers: [AuthController],
-  providers: [...AUTH_PROVIDERS],
-  exports: [...AUTH_PROVIDERS],
+  providers: [TokenBlacklistService, ...AUTH_PROVIDERS],
+  exports: [TokenBlacklistService, ...AUTH_PROVIDERS],
 })
 export class AuthModule {}

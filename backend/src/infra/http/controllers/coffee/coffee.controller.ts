@@ -13,6 +13,7 @@ import {
   BadRequestException,
   NotFoundException,
   Inject,
+  UseGuards,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -36,6 +37,7 @@ import {
 } from 'src/application/use-cases/coffee';
 import { GetCoffeeByNameUseCase } from 'src/application/use-cases/coffee/get-by-name';
 import { DomainError } from 'src/domain/models/@shared/domain-error';
+import { JwtAuthGuard } from 'src/infra/guards/jwt-auth.guard';
 import {
   CREATE_COFFEE_USE_CASE,
   GET_ALL_COFFEES_USE_CASE,
@@ -63,6 +65,7 @@ export class CoffeeController {
     private readonly deleteCoffeeUseCase: DeleteCoffeeUseCase,
   ) {}
 
+  @UseGuards(JwtAuthGuard)
   @Get()
   @ApiOperation({
     summary: 'Get all coffees',
@@ -90,6 +93,14 @@ export class CoffeeController {
     description: 'Number of items to skip',
     example: 0,
   })
+  @ApiQuery({
+    name: 'type',
+    required: false,
+    type: String,
+    description: 'Filter by coffee type',
+    example: 'Arabic',
+    enum: ['Arabic', 'Robusta'],
+  })
   @ApiResponse({
     status: 200,
     description: 'List of coffees retrieved successfully',
@@ -102,6 +113,7 @@ export class CoffeeController {
     const page = query.page ? parseInt(query.page, 10) : undefined;
     const limit = query.limit ? parseInt(query.limit, 10) : undefined;
     const offset = query.offset ? parseInt(query.offset, 10) : undefined;
+    const type = query.type;
 
     if (page && page < 1) {
       throw new BadRequestException('Page must be greater than 0');
@@ -109,9 +121,17 @@ export class CoffeeController {
     if (limit && (limit < 1 || limit > 100)) {
       throw new BadRequestException('Limit must be between 1 and 100');
     }
-
-    const options = page && limit ? { page, limit, offset } : undefined;
-
+    if (type && !['Arabic', 'Robusta'].includes(type)) {
+      throw new BadRequestException(
+        'Type must be either "Arabic" or "Robusta"',
+      );
+    }
+    const options =
+      page && limit
+        ? { page, limit, offset, type }
+        : type
+          ? { type }
+          : undefined;
     const result = await this.getAllCoffeesUseCase.execute(options);
 
     if (Array.isArray(result)) {
@@ -119,7 +139,7 @@ export class CoffeeController {
         id: coffee.id,
         name: coffee.name,
         description: coffee.description,
-        type: coffee.type,
+        type: coffee.type as 'Arabic' | 'Robusta',
         price: coffee.price,
         image_url: coffee.image_url,
         createdAt: coffee.createdAt!,
@@ -132,7 +152,7 @@ export class CoffeeController {
         id: coffee.id,
         name: coffee.name,
         description: coffee.description,
-        type: coffee.type,
+        type: coffee.type as 'Arabic' | 'Robusta',
         price: coffee.price,
         image_url: coffee.image_url,
         createdAt: coffee.createdAt!,
@@ -141,7 +161,7 @@ export class CoffeeController {
       meta: result.meta,
     };
   }
-
+  @UseGuards(JwtAuthGuard)
   @Get('by-name/:name')
   @ApiOperation({
     summary: 'Get coffee by name',
@@ -173,14 +193,14 @@ export class CoffeeController {
       id: coffee.id,
       name: coffee.name,
       description: coffee.description,
-      type: coffee.type,
+      type: coffee.type as 'Arabic' | 'Robusta',
       price: coffee.price,
       image_url: coffee.image_url,
       createdAt: coffee.createdAt!,
       updatedAt: coffee.updatedAt!,
     };
   }
-
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   @ApiOperation({
     summary: 'Get coffee by ID',
@@ -219,7 +239,7 @@ export class CoffeeController {
       updatedAt: coffee.updatedAt!,
     };
   }
-
+  @UseGuards(JwtAuthGuard)
   @Post()
   @ApiOperation({
     summary: 'Create a new coffee',
@@ -261,7 +281,7 @@ export class CoffeeController {
       throw error;
     }
   }
-
+  @UseGuards(JwtAuthGuard)
   @Put(':id')
   @ApiBearerAuth('JWT-auth')
   @ApiOperation({
@@ -321,6 +341,7 @@ export class CoffeeController {
     }
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   @ApiBearerAuth('JWT-auth')
   @ApiOperation({
