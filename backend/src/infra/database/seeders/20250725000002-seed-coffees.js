@@ -18,7 +18,7 @@ module.exports = {
           name: 'Classic Espresso',
           description:
             'Rich and bold espresso with a perfect crema. Made from premium arabica beans with notes of dark chocolate and caramel.',
-          type: 'Espresso',
+          type: 'Arabic',
           price: 2.5,
           image_url:
             'https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=400',
@@ -29,7 +29,7 @@ module.exports = {
           name: 'Cappuccino Deluxe',
           description:
             'Creamy cappuccino with steamed milk foam and a sprinkle of cinnamon. Perfect balance of espresso and milk.',
-          type: 'Cappuccino',
+          type: 'Arabic',
           price: 3.75,
           image_url:
             'https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=400',
@@ -40,7 +40,7 @@ module.exports = {
           name: 'Vanilla Latte',
           description:
             'Smooth latte with vanilla syrup and artistic latte art. Made with organic milk and premium vanilla extract.',
-          type: 'Latte',
+          type: 'Arabic',
           price: 4.25,
           image_url:
             'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=400',
@@ -51,7 +51,7 @@ module.exports = {
           name: 'Caramel Macchiato',
           description:
             'Layered macchiato with caramel drizzle and steamed milk. Sweet and indulgent with a perfect coffee balance.',
-          type: 'Macchiato',
+          type: 'Robusta',
           price: 4.5,
           image_url:
             'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400',
@@ -62,7 +62,7 @@ module.exports = {
           name: 'Colombian Single Origin',
           description:
             'Premium single-origin coffee from Colombian highlands. Bright acidity with notes of citrus and chocolate.',
-          type: 'Filter Coffee',
+          type: 'Robusta',
           price: 3.25,
           image_url:
             'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400',
@@ -73,7 +73,7 @@ module.exports = {
           name: 'Iced Mocha',
           description:
             'Refreshing iced coffee with chocolate syrup and whipped cream. Perfect for hot days with rich chocolate flavor.',
-          type: 'Iced Coffee',
+          type: 'Robusta',
           price: 4.0,
           image_url:
             'https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=400',
