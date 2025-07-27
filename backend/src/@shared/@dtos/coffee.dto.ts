@@ -6,6 +6,7 @@ import {
   IsUrl,
   IsOptional,
   IsDate,
+  IsIn,
 } from 'class-validator';
 
 export class CreateCoffeeDto {
@@ -19,7 +20,8 @@ export class CreateCoffeeDto {
 
   @IsString()
   @IsNotEmpty()
-  type: string;
+  @IsIn(['Arabic', 'Robusta'], { message: 'Type must be either "Arabic" or "Robusta"' })
+  type: 'Arabic' | 'Robusta';
 
   @IsNumber()
   @IsPositive()
@@ -45,7 +47,8 @@ export class UpdateCoffeeDto {
   @IsOptional()
   @IsString()
   @IsNotEmpty()
-  type?: string;
+  @IsIn(['Arabic', 'Robusta'], { message: 'Type must be either "Arabic" or "Robusta"' })
+  type?: 'Arabic' | 'Robusta';
 
   @IsOptional()
   @IsNumber()
@@ -70,7 +73,7 @@ export class CoffeeResponseDto {
   description: string;
 
   @IsString()
-  type: string;
+  type: 'Arabic' | 'Robusta';
 
   @IsNumber()
   price: number;

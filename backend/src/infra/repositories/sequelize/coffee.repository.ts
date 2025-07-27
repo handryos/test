@@ -9,15 +9,22 @@ import { CoffeeModel } from './coffee.model';
 import {
   PaginationOptions,
   PaginationResult,
+  FilterOptions,
 } from '../../../@shared/@pagination';
 
 @Injectable()
 export class SequelizeCoffeeRepository implements CoffeeRepository {
   async findAll(
-    options?: PaginationOptions,
+    options?: PaginationOptions | FilterOptions,
   ): Promise<CoffeeEntity[] | PaginationResult<CoffeeEntity>> {
-    if (!options) {
-      const coffees = await CoffeeModel.findAll();
+    console.log(options, "adopaksdopsakopdsa")
+    const whereClause = options?.type ? { type: options.type } : {};
+
+    if (!options || !('page' in options)) {
+      const coffees = await CoffeeModel.findAll({
+        where: whereClause,
+        order: [['createdAt', 'DESC']],
+      });
       return coffees.map((coffee) => this.toDomain(coffee));
     }
 
@@ -25,6 +32,7 @@ export class SequelizeCoffeeRepository implements CoffeeRepository {
     const offset = options.offset ?? (page - 1) * limit;
 
     const { count, rows } = await CoffeeModel.findAndCountAll({
+      where: whereClause,
       limit,
       offset,
       order: [['createdAt', 'DESC']],
@@ -100,7 +108,7 @@ export class SequelizeCoffeeRepository implements CoffeeRepository {
       coffeeModel.id,
       coffeeModel.name,
       coffeeModel.description,
-      coffeeModel.type,
+      coffeeModel.type as 'Arabic' | 'Robusta',
       coffeeModel.price,
       coffeeModel.image_url,
       coffeeModel.createdAt,

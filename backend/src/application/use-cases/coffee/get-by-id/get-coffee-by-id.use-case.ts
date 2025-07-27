@@ -7,6 +7,7 @@ export class GetCoffeeByIdUseCase {
   ) {}
 
   async execute(id: number): Promise<CoffeeEntity | null> {
-    return await this.coffeeRepository.findById(id);
+    const coffee = await this.coffeeRepository.findById(id);
+    return coffee;
   }
 }

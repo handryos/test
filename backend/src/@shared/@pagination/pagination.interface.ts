@@ -1,4 +1,8 @@
-export interface PaginationOptions {
+export interface FilterOptions {
+  type?: 'Arabic' | 'Robusta';
+}
+
+export interface PaginationOptions extends FilterOptions {
   page: number;
   limit: number;
   offset?: number;

@@ -1,7 +1,7 @@
 export type CoffeeCreateModel = {
   name: string;
   description: string;
-  type: string;
+  type: 'Arabic' | 'Robusta';
   price: number;
   image_url: string;
 };
@@ -9,7 +9,7 @@ export type CoffeeCreateModel = {
 export type CoffeeUpdateModel = {
   name?: string;
   description?: string;
-  type?: string;
+  type?: 'Arabic' | 'Robusta';
   price?: number;
   image_url?: string;
 };
