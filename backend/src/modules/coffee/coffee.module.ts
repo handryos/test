@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { CoffeeController } from '../../infra/http/controllers/coffe/coffee.controller';
 import { CoffeeModel } from '../../infra/repositories/sequelize/coffee.model';
 import { SequelizeCoffeeRepository } from '../../infra/repositories/sequelize/coffee.repository';
 import { COFFEE_REPOSITORY_TOKEN } from '../../domain/interfaces/repositories/coffe/coffee.repository.token';
@@ -14,6 +13,7 @@ import {
   DELETE_COFFEE_USE_CASE,
 } from './use-case.tokens';
 import { COFFEE_PROVIDERS } from 'src/providers/coffe-providers/coffee.provider';
+import { CoffeeController } from 'src/infra/http/controllers/coffee';
 
 @Module({
   imports: [SequelizeModule.forFeature([CoffeeModel])],
