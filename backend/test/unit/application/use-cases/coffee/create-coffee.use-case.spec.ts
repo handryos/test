@@ -14,7 +14,7 @@ describe('CreateCoffeeUseCase', () => {
     1,
     'Test Coffee',
     'Test Description',
-    'Espresso',
+    'Arabic',
     5.99,
     'http://example.com/coffee.jpg',
     new Date(),
@@ -48,7 +48,7 @@ describe('CreateCoffeeUseCase', () => {
     const createCoffeeDto: CreateCoffeeDto = {
       name: 'New Coffee',
       description: 'A delicious new coffee',
-      type: 'Latte',
+      type: 'Robusta',
       price: 4.5,
       image_url: 'http://example.com/new-coffee.jpg',
     };
@@ -62,7 +62,7 @@ describe('CreateCoffeeUseCase', () => {
       const expectedCreateModel: CoffeeCreateModel = {
         name: 'New Coffee',
         description: 'A delicious new coffee',
-        type: 'Latte',
+        type: 'Robusta',
         price: 4.5,
         image_url: 'http://example.com/new-coffee.jpg',
       };
@@ -119,7 +119,7 @@ describe('CreateCoffeeUseCase', () => {
       const detailedDto: CreateCoffeeDto = {
         name: 'Premium Coffee',
         description: 'Premium arabica beans with chocolate notes',
-        type: 'Premium Blend',
+        type: 'Robusta',
         price: 12.99,
         image_url: 'http://example.com/premium.jpg',
       };
@@ -132,7 +132,7 @@ describe('CreateCoffeeUseCase', () => {
       expect(mockCoffeeRepository.create).toHaveBeenCalledWith({
         name: 'Premium Coffee',
         description: 'Premium arabica beans with chocolate notes',
-        type: 'Premium Blend',
+        type: 'Robusta',
         price: 12.99,
         image_url: 'http://example.com/premium.jpg',
       });
