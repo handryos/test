@@ -45,6 +45,8 @@ services:
     container_name: nextjs-app
     ports:
       - "3000:3000"
+    environment:
+      NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL}
     networks:
       - app-network
     restart: always
@@ -58,7 +60,7 @@ services:
       - "5500:5500"
     depends_on:
       - nestjs-app
-      # - front-end
+      - front-end
     networks:
       - app-network
     restart: always
