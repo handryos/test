@@ -80,7 +80,6 @@ export const LoginPage: React.FC = () => {
             alt="MVST Logo"
             width={166}
             height={25}
-            style={{ width: "100%", height: "auto" }}
           />
         </motion.div>
         <div className="col-span-12 md:col-span-6 flex mb-12 flex-col justify-start md:justify-center">
