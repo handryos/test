@@ -8,10 +8,7 @@ import { FormInput } from "@/shared/components/ui/FormInput";
 import { Button } from "@/shared/components/ui/Button";
 import { useAppDispatch } from "@/store/hooks";
 import { loginThunk, registerThunk } from "@/store/slices/authSlice";
-import {
-  handleLoginSuccess,
-  handleApiError,
-} from "@/features/auth/middlewares/middleware";
+import { handleLoginSuccess } from "@/features/auth/middlewares/middleware";
 
 export const LoginPage: React.FC = () => {
   const [isRegister, setIsRegister] = React.useState(false);
@@ -46,7 +43,7 @@ export const LoginPage: React.FC = () => {
       const result = (await dispatch(thunk(data))) as { payload: AuthPayload };
       console.log(result);
       if (!result.payload?.access_token) {
-        handleApiError(result.payload);
+        return;
       } else {
         handleLoginSuccess();
       }
@@ -73,7 +70,7 @@ export const LoginPage: React.FC = () => {
       </div>
       <div className="relative z-10 h-full  w-full max-w-[1440px] mx-auto grid grid-cols-12 ">
         <motion.div
-          className="col-span-12 flex justify-between ml-6    items-start mb-6 py-4 md:py-8"
+          className="col-span-12 flex justify-between ml-6 items-start mb-6 py-4 md:py-8"
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.6 }}
@@ -83,6 +80,7 @@ export const LoginPage: React.FC = () => {
             alt="MVST Logo"
             width={166}
             height={25}
+            style={{ width: "100%", height: "auto" }}
           />
         </motion.div>
         <div className="col-span-12 md:col-span-6 flex mb-12 flex-col justify-start md:justify-center">
