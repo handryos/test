@@ -149,7 +149,7 @@ export const CoffeeModal: React.FC<CoffeeModalProps> = ({
 
   if (!open) return null;
   return (
-    <div className="fixed inset-0 z-50 flex items-center p-12 md:p-4  justify-center bg-black bg-opacity-40">
+    <div className="fixed inset-0 z-50 flex items-center p-4   md:p-4  justify-center bg-black bg-opacity-40">
       <div
         className="bg-[#181818] rounded-2xl shadow-2xl w-full max-w-5xl relative flex flex-col items-stretch"
         style={{ minHeight: "90dvh" }}
@@ -157,10 +157,10 @@ export const CoffeeModal: React.FC<CoffeeModalProps> = ({
         <img
           src="/form-image.png"
           alt="Coffee beans"
-          className="absolute mr-4 left-0 bottom-0 z-10 w-48 h-auto object-contain pointer-events-none select-none"
+          className={`absolute left-0 bottom-0 z-10 w-48 h-auto object-contain pointer-events-none select-none hidden md:block`}
           style={{ marginRight: 24, marginTop: 24 }}
         />
-        <div className="flex-1 flex flex-col items-center justify-center p-10 relative z-20">
+        <div className="flex-1 flex flex-col items-center justify-center p-2 md:p-10 relative z-20">
           <button
             className="absolute top-6 right-8 text-white text-3xl font-bold hover:text-coffee-primary"
             onClick={onClose}
@@ -327,17 +327,17 @@ export const CoffeeModal: React.FC<CoffeeModalProps> = ({
               {error && (
                 <div className="text-red-500 text-sm text-center">{error}</div>
               )}
-              <div className="flex gap-4 mt-6 justify-center">
+              <div className="flex flex-col md:flex-row gap-3 md:gap-4 mt-6 justify-center w-full">
                 <button
                   type="button"
-                  className="px-6 py-3 rounded-full border-2 border-coffee-primary text-white font-semibold bg-transparent hover:bg-coffee-primary hover:text-white transition-colors"
+                  className="w-full md:w-auto px-6 py-3 rounded-full border-2 border-coffee-primary text-white font-semibold bg-transparent hover:bg-coffee-primary hover:text-white transition-colors"
                   onClick={onClose}
                 >
                   Discard
                 </button>
                 <button
                   type="submit"
-                  className="px-6 py-3 rounded-full bg-coffee-primary text-white font-semibold border-2 border-coffee-primary hover:bg-opacity-90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full md:w-auto px-6 py-3 rounded-full bg-coffee-primary text-white font-semibold border-2 border-coffee-primary hover:bg-opacity-90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   disabled={
                     loading ||
                     !form?.name ||
