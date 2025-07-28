@@ -16,7 +16,7 @@ module.exports = {
           bg: "#101011",
           card: "#191919",
           label: "#9B9B9B",
-          inputBg: "#838382",
+          inputBg: "#2D2D2D",
           inputText: "#938E8E",
           typeText: "#3A383D",
           typeBg: "#383838",

@@ -1,6 +1,8 @@
+import { CoffeeService } from "../services/api";
 import React, { useEffect, useRef, useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CoffeeCard } from "./CoffeeCard";
+import { CoffeeModal } from "./CoffeeModal";
 import { useCoffeeRedux } from "@/features/coffee/hooks/useCoffeeRedux";
 import { ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
 
@@ -11,6 +13,18 @@ interface CoffeeCarouselProps {
 export const CoffeeCarousel: React.FC<CoffeeCarouselProps> = ({
   selectedFilter,
 }) => {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedCoffeeId, setSelectedCoffeeId] = useState<number | null>(null);
+  const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
+
+  const handleOpenModal = (id: number) => {
+    setSelectedCoffeeId(id);
+    setModalOpen(true);
+  };
+  const handleCloseModal = () => {
+    setModalOpen(false);
+    setSelectedCoffeeId(null);
+  };
   const {
     coffees,
     isLoading,
@@ -19,6 +33,7 @@ export const CoffeeCarousel: React.FC<CoffeeCarouselProps> = ({
     loadNextPage,
     updateFilter,
     selectedFilter: currentFilter,
+    refreshCoffees,
   } = useCoffeeRedux(6);
   const observerRef = useRef<HTMLDivElement>(null);
   const [currentPage, setCurrentPage] = useState(0);
@@ -127,7 +142,7 @@ export const CoffeeCarousel: React.FC<CoffeeCarouselProps> = ({
           <button
             onClick={prevPage}
             disabled={currentPage === 0}
-            className="absolute -left-12 top-1/2 transform -translate-y-1/2 z-10 bg-coffee-primary text-white p-3 rounded-full shadow-lg hover:bg-opacity-80 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="absolute -left-0 md:-left-12 top-1/2 transform -translate-y-1/2 z-10 bg-coffee-primary text-white p-3 rounded-full shadow-lg hover:bg-opacity-80 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <ChevronLeft size={20} />
           </button>
@@ -137,7 +152,7 @@ export const CoffeeCarousel: React.FC<CoffeeCarouselProps> = ({
             disabled={
               currentPage >= totalPages - 1 && !hasNextPage && !isLoading
             }
-            className="absolute -right-12 top-1/2 transform -translate-y-1/2 z-10 bg-coffee-primary text-white p-3 rounded-full shadow-lg hover:bg-opacity-80 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="absolute -right-0 md:-right-12 top-1/2 transform -translate-y-1/2 z-10 bg-coffee-primary text-white p-3 rounded-full shadow-lg hover:bg-opacity-80 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isLoading ? (
               <Loader2 className="animate-spin" size={20} />
@@ -172,9 +187,58 @@ export const CoffeeCarousel: React.FC<CoffeeCarouselProps> = ({
                       description={coffee.description}
                       price={coffee.price}
                       imageUrl={coffee.image_url}
+                      id={coffee.id}
+                      onEdit={() => handleOpenModal(coffee.id)}
+                      onDelete={() => setConfirmDeleteId(coffee.id)}
                     />
+                    {typeof confirmDeleteId === "number" && (
+                      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+                        <div className="bg-[#181818] rounded-2xl shadow-2xl p-8 w-full max-w-md relative flex flex-col items-center">
+                          <button
+                            className="absolute top-4 right-6 text-white text-2xl font-bold hover:text-coffee-primary"
+                            onClick={() => setConfirmDeleteId(null)}
+                          >
+                            &times;
+                          </button>
+                          <h2 className="text-center text-2xl font-bold text-white mb-6">
+                            Confirm Deletion
+                          </h2>
+                          <p className="text-white mb-8">
+                            Are you sure you want to delete this coffee?
+                          </p>
+                          <div className="flex gap-4 w-full justify-center">
+                            <button
+                              className="flex-1 py-3 rounded-full border-2 border-coffee-primary text-coffee-primary font-semibold bg-transparent hover:bg-coffee-primary hover:text-white transition-colors"
+                              onClick={() => setConfirmDeleteId(null)}
+                            >
+                              Cancel
+                            </button>
+                            <button
+                              className="flex-1 py-3 rounded-full bg-red-600 text-white font-semibold border-2 border-red-600 hover:bg-opacity-90 transition-colors"
+                              onClick={async () => {
+                                if (typeof confirmDeleteId === "number") {
+                                  await CoffeeService.deleteCoffee(
+                                    confirmDeleteId
+                                  );
+                                  setConfirmDeleteId(null);
+                                  refreshCoffees();
+                                }
+                              }}
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </motion.div>
                 ))}
+                <CoffeeModal
+                  open={modalOpen}
+                  onClose={handleCloseModal}
+                  coffeeId={selectedCoffeeId}
+                  onSave={refreshCoffees}
+                />
               </motion.div>
             </AnimatePresence>
           </div>

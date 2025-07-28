@@ -1,3 +1,37 @@
+export const fetchCoffeeById = createAsyncThunk(
+  "coffee/fetchCoffeeById",
+  async (id: number) => {
+    return await CoffeeService.getCoffeeById(id);
+  }
+);
+
+export const createCoffee = createAsyncThunk(
+  "coffee/createCoffee",
+  async (payload: Omit<Coffee, "id" | "createdAt" | "updatedAt">) => {
+    return await CoffeeService.createCoffee(payload);
+  }
+);
+
+export const updateCoffee = createAsyncThunk(
+  "coffee/updateCoffee",
+  async ({
+    id,
+    payload,
+  }: {
+    id: number;
+    payload: Omit<Coffee, "id" | "createdAt" | "updatedAt">;
+  }) => {
+    return await CoffeeService.updateCoffee(id, payload);
+  }
+);
+
+export const deleteCoffee = createAsyncThunk(
+  "coffee/deleteCoffee",
+  async (id: number) => {
+    await CoffeeService.deleteCoffee(id);
+    return id;
+  }
+);
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import {
   Coffee,
@@ -19,7 +53,6 @@ export const fetchCoffees = createAsyncThunk(
     type?: string;
   }) => {
     const response = await CoffeeService.getCoffees(page, limit, type);
-    console.log(response);
 
     return { ...response, reset };
   }

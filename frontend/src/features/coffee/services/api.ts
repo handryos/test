@@ -1,3 +1,4 @@
+import { callApi } from "@/shared/services/callApi";
 export interface Coffee {
   id: number;
   name: string;
@@ -24,37 +25,57 @@ export interface CoffeesResponse {
 }
 
 export class CoffeeService {
-  static async getCoffees(page = 1, limit = 6, type?: string): Promise<CoffeesResponse> {
+  static async getCoffeeById(id: number): Promise<Coffee> {
+    return callApi<Coffee>(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/coffees/${id}`,
+      {}
+    );
+  }
+  static async createCoffee(
+    payload: Omit<Coffee, "id" | "createdAt" | "updatedAt">
+  ): Promise<Coffee> {
+    return callApi<Coffee>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/coffees`, {
+      method: "POST",
+      body: JSON.stringify(payload),
+    });
+  }
+
+  static async updateCoffee(
+    id: number,
+    payload: Omit<Coffee, "id" | "createdAt" | "updatedAt">
+  ): Promise<Coffee> {
+    return callApi<Coffee>(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/coffees/${id}`,
+      {
+        method: "PUT",
+        body: JSON.stringify(payload),
+      }
+    );
+  }
+
+  static async deleteCoffee(id: number): Promise<void> {
+    await callApi(`${process.env.NEXT_PUBLIC_API_BASE_URL}/coffees/${id}`, {
+      method: "DELETE",
+    });
+  }
+  static async getCoffees(
+    page = 1,
+    limit = 6,
+    type?: string
+  ): Promise<CoffeesResponse> {
     let url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/coffees?page=${page}&limit=${limit}`;
-    
-    if (type && type !== 'all') {
+
+    if (type && type !== "all") {
       url += `&type=${type}`;
     }
 
-    const response = await fetch(url, {
-      headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsIm5hbWUiOiJ0ZXN0ZTEzIiwiaWF0IjoxNzUzNjE3OTkxLCJleHAiOjE3NTM3MDQzOTF9.m-mvMbYlno0L6iXTuIoxHckmRi_1rIeyTqx9YeeGK7s`,
-      },
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error("Failed to fetch coffees");
-    }
-
-    return data;
+    return callApi<CoffeesResponse>(url, {});
   }
 
   static async getAllCoffees(): Promise<Coffee[]> {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/coffees`
+    return callApi<Coffee[]>(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/coffees`,
+      {}
     );
-
-    if (!response.ok) {
-      throw new Error("Failed to fetch coffees");
-    }
-
-    return response.json();
   }
 }
