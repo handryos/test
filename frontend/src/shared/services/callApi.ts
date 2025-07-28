@@ -1,5 +1,5 @@
-import { handleApiError } from "@/features/auth/middlewares/middleware";
 import { toast } from "react-toastify";
+import { handleApiError } from "../middlewares/middleware";
 
 export async function callApi<T = any>(
   url: string,
