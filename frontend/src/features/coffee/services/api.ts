@@ -71,11 +71,4 @@ export class CoffeeService {
 
     return callApi<CoffeesResponse>(url, {});
   }
-
-  static async getAllCoffees(): Promise<Coffee[]> {
-    return callApi<Coffee[]>(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/coffees`,
-      {}
-    );
-  }
 }
