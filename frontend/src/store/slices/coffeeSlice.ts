@@ -130,10 +130,6 @@ const coffeeSlice = createSlice({
         state.totalPages = meta.totalPages;
 
         state.filteredCoffees = state.coffees;
-      })
-      .addCase(fetchCoffees.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.error.message || "Failed to fetch coffees";
       });
   },
 });
