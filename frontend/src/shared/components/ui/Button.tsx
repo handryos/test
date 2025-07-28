@@ -7,12 +7,14 @@ interface ButtonProps {
   className?: string;
   variant?: "primary" | "secondary";
   type?: "button" | "submit" | "reset";
+  disabled?: boolean;
 }
 
 export const Button: React.FC<ButtonProps> = ({
   children,
   onClick,
   className = "",
+  disabled = false,
   variant = "primary",
   type = "button",
 }) => {
@@ -26,6 +28,7 @@ export const Button: React.FC<ButtonProps> = ({
   return (
     <div className="py-4">
       <button
+        disabled={disabled}
         type={type}
         onClick={onClick}
         className={`${base} text-white   ${variants[variant]} ${className}`}
