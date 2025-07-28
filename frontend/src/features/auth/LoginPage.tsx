@@ -42,10 +42,10 @@ export const LoginPage: React.FC = () => {
   } = useForm({
     resolver: yupResolver(schema),
     mode: "onChange",
-    defaultValues: { 
-      name: "", 
+    defaultValues: {
+      name: "",
       password: "",
-      ...(isRegister && { confirmPassword: "" }) 
+      ...(isRegister && { confirmPassword: "" }),
     },
   });
 
@@ -55,18 +55,17 @@ export const LoginPage: React.FC = () => {
   };
 
   const onSubmit = async (data: any) => {
-  
     setLoading(true);
-    
+
     try {
       const thunk = isRegister ? registerThunk : loginThunk;
       const result = (await dispatch(thunk(data))) as { payload: AuthPayload };
-      
+
       if (result.payload?.statusCode && result.payload.statusCode >= 400) {
         return;
       }
 
-      if (!result.payload?.access_token) {
+      if (!result.payload?.access_token && !isRegister) {
         return;
       }
 
@@ -131,7 +130,7 @@ export const LoginPage: React.FC = () => {
         >
           <div className="p-6 sm:p-8">
             <div className="text-center mb-8">
-              <motion.h2 
+              <motion.h2
                 className="text-3xl font-bold text-white mb-2"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -139,9 +138,7 @@ export const LoginPage: React.FC = () => {
               >
                 {isRegister ? "Create Account" : "Welcome Back"}
               </motion.h2>
-             
             </div>
-
 
             <form onSubmit={handleSubmit(onSubmit)}>
               <motion.div
@@ -189,7 +186,11 @@ export const LoginPage: React.FC = () => {
                   className="absolute right-3 top-10 text-gray-500"
                   onClick={() => setShowPassword(!showPassword)}
                 >
-                  {showPassword ? <EyeOff style={{marginTop: "4px"}} size={18} /> : <Eye style={{marginTop: "4px"}} size={18} />}
+                  {showPassword ? (
+                    <EyeOff style={{ marginTop: "4px" }} size={18} />
+                  ) : (
+                    <Eye style={{ marginTop: "4px" }} size={18} />
+                  )}
                 </button>
               </motion.div>
 
@@ -224,13 +225,14 @@ export const LoginPage: React.FC = () => {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1.1 }}
               >
-                <Button
-                  type="submit"
-                  disabled={!isValid || loading}
-                >
-                  {isRegister 
-                    ? (loading ? "Creating account..." : "Sign Up") 
-                    : (loading ? "Signing in..." : "Sign In")}
+                <Button type="submit" disabled={!isValid || loading}>
+                  {isRegister
+                    ? loading
+                      ? "Creating account..."
+                      : "Sign Up"
+                    : loading
+                    ? "Signing in..."
+                    : "Sign In"}
                 </Button>
 
                 <Button
@@ -239,15 +241,13 @@ export const LoginPage: React.FC = () => {
                   onClick={toggleFormMode}
                   disabled={loading}
                 >
-                  {isRegister 
-                    ? "Already have an account? Sign In" 
+                  {isRegister
+                    ? "Already have an account? Sign In"
                     : "Don't have an account? Sign Up"}
                 </Button>
               </motion.div>
             </form>
-
           </div>
-          
         </motion.div>
       </div>
     </motion.div>
