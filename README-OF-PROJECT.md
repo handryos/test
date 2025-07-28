@@ -43,9 +43,18 @@ This project is a complete solution for coffee management and showcase, with a b
 
 - Endpoints cover authentication, coffees, users, pagination, and filters.
 
+### About tests
+
+- To run the tests, you need the containers running.
+
 ### Jest Tests
 
 - Run `yarn test` in the backend path to execute all unit tests.
+
+### Cypress Tests
+
+- Run `yarn test` in the frontend path to execute all e2e tests.
+- **Pay attention:** If you are running on WSL (Windows Subsystem for Linux), you must install Cypress dependencies inside your WSL environment. Run all Cypress commands from your WSL terminal, and make sure you have the required libraries (like `libgtk2.0-0`, `libgtk-3-0`, `libxss1`, `libasound2`, etc.) installed. See the official Cypress docs for [Linux dependencies](https://docs.cypress.io/guides/getting-started/installing-cypress#Linux-Prerequisites).
 
 ### Sentry
 
