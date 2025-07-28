@@ -139,7 +139,9 @@ export const CoffeeModal: React.FC<CoffeeModalProps> = ({
         await dispatch(fetchCoffees({ page: 1, limit: 6, reset: true }));
       }
       if (onSave) onSave(result);
-      onClose();
+      if (result && !error) {
+        onClose();
+      }
     } catch (err) {
       setError("Failed to save coffee");
     } finally {

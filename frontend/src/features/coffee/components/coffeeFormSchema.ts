@@ -6,7 +6,15 @@ export const coffeeFormSchema = yup.object().shape({
     .number()
     .typeError("Price must be a number")
     .min(0, "Price must be at least 0")
-    .required("Price is required"),
+    .required("Price is required")
+    .test(
+      "decimal-places",
+      "Price must have at most 2 decimal places",
+      (value) => {
+        if (value === undefined || value === null) return true;
+        return /^\d{1,8}(\.\d{1,2})?$/.test(value.toString());
+      }
+    ),
   type: yup
     .string()
     .oneOf(["Arabic", "Robusta"], "Select a type")
