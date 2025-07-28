@@ -124,15 +124,6 @@ export const CoffeeCarousel: React.FC<CoffeeCarouselProps> = ({
       transition={{ delay: 1.2, duration: 0.8 }}
     >
       <div className="mb-10 text-center">
-        <motion.p
-          className="font-title text-ui-white mb-2 text-2xl md:text-5xl"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.4, duration: 0.6 }}
-        >
-          MVST. EXCLUSIVE COFFEE
-        </motion.p>
-
         <motion.div
           className="relative"
           initial={{ opacity: 0 }}
@@ -142,7 +133,7 @@ export const CoffeeCarousel: React.FC<CoffeeCarouselProps> = ({
           <button
             onClick={prevPage}
             disabled={currentPage === 0}
-            className="absolute -left-0 md:-left-12 top-1/2 transform -translate-y-1/2 z-10 bg-coffee-primary text-white p-3 rounded-full shadow-lg hover:bg-opacity-80 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="absolute -left-0 md:-left-6 top-1/2 transform -translate-y-1/2 z-10 bg-coffee-primary text-white p-3 rounded-full shadow-lg hover:bg-opacity-80 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <ChevronLeft size={20} />
           </button>
@@ -152,7 +143,7 @@ export const CoffeeCarousel: React.FC<CoffeeCarouselProps> = ({
             disabled={
               currentPage >= totalPages - 1 && !hasNextPage && !isLoading
             }
-            className="absolute -right-0 md:-right-12 top-1/2 transform -translate-y-1/2 z-10 bg-coffee-primary text-white p-3 rounded-full shadow-lg hover:bg-opacity-80 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="absolute -right-0 md:-right-6 top-1/2 transform -translate-y-1/2 z-10 bg-coffee-primary text-white p-3 rounded-full shadow-lg hover:bg-opacity-80 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isLoading ? (
               <Loader2 className="animate-spin" size={20} />

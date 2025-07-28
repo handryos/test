@@ -45,7 +45,9 @@ export const CoffeeCard: React.FC<CoffeeCardProps> = ({
         </span>
         <div className="flex gap-2">
           <button
-            className="bg-mvst-blue text-white px-2 py-1 rounded text-xs font-semibold hover:bg-mvst-blue/80"
+            className={` text-white px-2 py-1 rounded text-xs font-semibold hover:bg-mvst-blue/80 ${
+              type === "Arabic" ? "bg-mvst-blue" : "bg-ui-typeBg"
+            }`}
             onClick={onEdit}
             disabled={!onEdit}
           >
@@ -86,7 +88,11 @@ export const CoffeeCard: React.FC<CoffeeCardProps> = ({
 
         <div className="mt-auto">
           <motion.p className="text-white font-bold text-xl">
-            {Number(price ?? 0).toFixed(2)} €
+            {Number(price ?? 0).toLocaleString("de-DE", {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}{" "}
+            €
           </motion.p>
         </div>
       </div>

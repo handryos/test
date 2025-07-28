@@ -10,6 +10,7 @@ export const ShowcaseFooter: React.FC = () => (
         className="object-cover w-full h-[100px] md:h-[300px]"
         height={300}
         width={1920}
+        style={{ width: "100%", height: "auto" }}
       />
       <div
         className="absolute left-0 top-0 w-full h-full pointer-events-none"

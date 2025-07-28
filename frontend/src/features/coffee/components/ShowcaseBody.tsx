@@ -14,6 +14,15 @@ export const ShowcaseBody: React.FC = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 1.2, duration: 0.8 }}
     >
+      <motion.p
+        className="font-title text-ui-white text-center mb-12 text-2xl md:text-4xl"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.4, duration: 0.6 }}
+      >
+        MVST. EXCLUSIVE COFFEE
+      </motion.p>
+
       <motion.div
         className="mb-12"
         initial={{ opacity: 0, scale: 0.8 }}
