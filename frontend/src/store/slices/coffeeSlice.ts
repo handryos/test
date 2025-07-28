@@ -58,14 +58,6 @@ export const fetchCoffees = createAsyncThunk(
   }
 );
 
-export const fetchAllCoffees = createAsyncThunk(
-  "coffee/fetchAllCoffees",
-  async () => {
-    const response = await CoffeeService.getAllCoffees();
-    return response;
-  }
-);
-
 export interface CoffeeState {
   coffees: Coffee[];
   filteredCoffees: Coffee[];
@@ -126,7 +118,11 @@ const coffeeSlice = createSlice({
         if (reset) {
           state.coffees = data;
         } else {
-          state.coffees = [...state.coffees, ...data];
+          const merged = [...state.coffees, ...data];
+          const unique = Array.from(
+            new Map(merged.map((c) => [c.id, c])).values()
+          );
+          state.coffees = unique;
         }
 
         state.currentPage = meta.page;
@@ -138,21 +134,6 @@ const coffeeSlice = createSlice({
       .addCase(fetchCoffees.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message || "Failed to fetch coffees";
-      })
-
-      .addCase(fetchAllCoffees.pending, (state) => {
-        state.isLoading = true;
-        state.error = null;
-      })
-      .addCase(fetchAllCoffees.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.coffees = action.payload;
-
-        state.filteredCoffees = state.coffees;
-      })
-      .addCase(fetchAllCoffees.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.error.message || "Failed to fetch all coffees";
       });
   },
 });
