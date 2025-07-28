@@ -1,8 +1,7 @@
 import { toast } from "react-toastify";
-import { store } from "@/store";
 import { logout } from "@/store/slices/authSlice";
 
-export function handleApiError(error: any) {
+export function handleApiError(error: any, dispatch?: any) {
   if (!error) return;
 
   const message = error?.message;
@@ -17,7 +16,7 @@ export function handleApiError(error: any) {
     const isInvalidCredentials =
       typeof message === "string" && message.includes("Invalid credentials");
 
-    store.dispatch(logout());
+    if (dispatch) dispatch(logout());
     toast.error(message || "Unauthorized access");
 
     if (typeof window !== "undefined" && !isInvalidCredentials) {

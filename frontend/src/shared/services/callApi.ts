@@ -3,7 +3,8 @@ import { handleApiError } from "../middlewares/middleware";
 
 export async function callApi<T = any>(
   url: string,
-  options: RequestInit = {}
+  options: RequestInit = {},
+  dispatch?: any
 ): Promise<T> {
   const headers = {
     ...(options.headers || {}),
@@ -15,7 +16,11 @@ export async function callApi<T = any>(
   const response = await fetch(url, { ...options, headers });
   const data = await response.json();
   if (!response.ok) {
-    handleApiError(data);
+    if (dispatch) {
+      handleApiError(data, dispatch);
+    } else {
+      handleApiError(data);
+    }
   } else {
     const method = (options.method || "GET").toUpperCase();
     if (["POST", "PUT", "DELETE", "PATCH"].includes(method)) {
