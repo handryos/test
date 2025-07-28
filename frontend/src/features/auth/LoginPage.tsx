@@ -8,7 +8,7 @@ import { FormInput } from "@/shared/components/ui/FormInput";
 import { Button } from "@/shared/components/ui/Button";
 import { useAppDispatch } from "@/store/hooks";
 import { loginThunk, registerThunk } from "@/store/slices/authSlice";
-import { handleLoginSuccess } from "@/features/auth/middlewares/middleware";
+import { handleLoginSuccess } from "@/shared/middlewares/middleware";
 
 export const LoginPage: React.FC = () => {
   const [isRegister, setIsRegister] = React.useState(false);
